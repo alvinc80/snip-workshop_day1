@@ -22,10 +22,10 @@ Each project lives at the root of its own orphan branch. The `main` branch mount
 
 ## Clone
 
-Use `--recurse-submodules` to populate all three project folders:
+Select `main` and use `--recurse-submodules` to populate all three project folders. This repository currently advertises `backend` as its default branch, so `--branch main` is needed to clone the superproject:
 
 ```sh
-git clone --recurse-submodules https://github.com/alvinc80/snip-workshop_day1.git
+git clone --recurse-submodules --branch main https://github.com/alvinc80/snip-workshop_day1.git
 ```
 
 A plain `git clone` checks out `main` but leaves submodule directories empty. To populate them afterward, run:
