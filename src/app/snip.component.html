@@ -1,0 +1,119 @@
+<div class="ambient-glow" aria-hidden="true"></div>
+
+<main class="page-shell">
+  <header class="hero">
+    <a class="wordmark" href="/" aria-label="Snip home">
+      <span class="wordmark-mark" aria-hidden="true">s</span>
+      <span>snip</span>
+    </a>
+
+    <div class="hero-copy">
+      <p class="eyebrow"><span class="eyebrow-dot"></span> MAKE ROOM FOR THE GOOD STUFF</p>
+      <h1>Long link.<br /><span>Little link.</span></h1>
+      <p class="hero-subtitle">A cleaner way to share what matters.</p>
+    </div>
+
+    <form class="shorten-form" (submit)="createLink($event, urlInput)">
+      <span class="input-glyph" aria-hidden="true">↗</span>
+      <label class="visually-hidden" for="long-url">Long URL to shorten</label>
+      <input
+        #urlInput
+        id="long-url"
+        name="url"
+        type="text"
+        inputmode="url"
+        autocomplete="url"
+        placeholder="Paste a long link here..."
+        [disabled]="isSubmitting()"
+        aria-describedby="url-help"
+      />
+      <button type="submit" [disabled]="isSubmitting()">
+        <span>{{ isSubmitting() ? 'Making link' : 'Shorten link' }}</span>
+        <span class="button-arrow" aria-hidden="true">↗</span>
+      </button>
+    </form>
+    <p class="form-hint" id="url-help">Works with HTTP and HTTPS links</p>
+
+    @if (formError(); as message) {
+      <p class="notice notice-error" role="alert">
+        <span class="notice-symbol" aria-hidden="true">!</span>
+        {{ message }}
+      </p>
+    }
+
+    @if (createdLink(); as link) {
+      <div class="notice notice-success" role="status" aria-live="polite">
+        <span class="success-check" aria-hidden="true">✓</span>
+        <span class="success-label">Your short link</span>
+        <a [href]="link.shortUrl" target="_blank" rel="noreferrer">{{ link.shortUrl }}</a>
+      </div>
+    }
+  </header>
+
+  <section class="links-section" aria-labelledby="links-title">
+    <div class="section-heading">
+      <div>
+        <p class="section-kicker">YOUR COLLECTION</p>
+        <h2 id="links-title">Recent links</h2>
+      </div>
+      <div class="link-total" aria-live="polite">
+        <span class="total-dot" aria-hidden="true"></span>
+        {{ links().length }} {{ links().length === 1 ? 'link' : 'links' }}
+      </div>
+    </div>
+
+    <div class="table-frame">
+      @if (isLoading()) {
+        <div class="table-message" role="status">Loading links...</div>
+      } @else if (listError()) {
+        <div class="table-message table-error" role="alert">
+          <span>{{ listError() }}</span>
+          <span class="table-error-note">You can still create a link above.</span>
+        </div>
+      } @else if (links().length === 0) {
+        <div class="empty-state">
+          <span class="empty-icon" aria-hidden="true">↗</span>
+          <h3>Your next link starts here</h3>
+          <p>Shortened links will appear in this space.</p>
+        </div>
+      } @else {
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">SHORT LINK</th>
+                <th scope="col">DESTINATION</th>
+                <th scope="col" class="visits-heading">VISITS</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (link of links(); track link.code) {
+                <tr>
+                  <td>
+                    <a class="short-link" [href]="link.shortUrl" target="_blank" rel="noreferrer">
+                      <span class="short-link-prefix">snip/</span>{{ link.code }}
+                      <span class="external-arrow" aria-hidden="true">↗</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a class="destination" [href]="link.url" target="_blank" rel="noreferrer" [title]="link.url">
+                      {{ link.url }}
+                    </a>
+                  </td>
+                  <td class="visits">{{ link.hits }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <span class="footer-mark" aria-hidden="true">s</span>
+    <span>SNIP</span>
+    <span class="footer-divider">/</span>
+    <span>LINKS, LIGHTER</span>
+  </footer>
+</main>
