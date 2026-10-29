@@ -11,6 +11,10 @@
 - **Radius:** 999 px for the URL composer and action; 12 px for notices; 16 px for the link table surface.
 - **Borders and shadows:** warm-white borders at 10–17% opacity; soft black lift beneath the composer and table; a low-opacity coral/amber glow behind the hero.
 
+## Reference Cues
+
+The live reference currently uses a light neutral canvas, a top-left wordmark, a centered bold headline, muted supporting copy, and a broad rounded prompt surface with a fine border. Snip translates that hierarchy, spacing, and composer shape into its requested charcoal palette and fixed warm glow; it does not reuse the reference's brand, logo, or copy.
+
 ## Element Mapping
 
 - **Page header:** centered hero with a compact Snip wordmark, warm eyebrow, two-line headline, and muted supporting line.

@@ -23,6 +23,9 @@
 }
 
 .wordmark {
+	position: absolute;
+	top: 28px;
+	left: 0;
 	display: inline-flex;
 	align-items: center;
 	gap: 9px;
